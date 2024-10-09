@@ -1,10 +1,11 @@
 <?php
 require_once __DIR__ . "/db/db.php";
+require_once __DIR__ . "/classes/movie.php";
 
 $movieList = [];
 
 foreach ($movies as $movie) {
-    $movieList[] = $movie;
+    $movieList[] = new Movie($movie["title"], $movie["year"], $movie["poster"], $movie["genre"]);
 }
 ?>
 
@@ -31,19 +32,21 @@ foreach ($movies as $movie) {
         </div>
         <div class="row py-5">
             <?php foreach ($movieList as $singleMovie) { ?>
-            <div class="col">
-                <div class="card text-center">
-                    <div class="card-title p-3">
-                        <?= $singleMovie["title"] ?>
-                    </div>
-                    <div class="card-body">
-                        <span><?= $singleMovie["year"] ?></span>
-                    </div>
-                    <div class="card-footer">
-                        <span><?= $singleMovie["genre"] ?></span>
+                <div class="col">
+                    <div class="card text-center">
+                        <div class="card-title p-3">
+                            <h3><?= $singleMovie->getTitle() ?></h3>
+                            <span><?= $singleMovie->getYear() ?></span>
+                        </div>
+                        <div class="card-body">
+                            <img src="<?= $singleMovie->getPoster() ?>" alt="<?= $singleMovie->getTitle() ?>"
+                                class="img-fluid">
+                        </div>
+                        <div class="card-footer">
+                            <span><?= $singleMovie->getGenre() ?></span>
+                        </div>
                     </div>
                 </div>
-            </div>
             <?php } ?>
         </div>
     </main>
