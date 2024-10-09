@@ -1,13 +1,29 @@
 <?php
 
+class Genre
+{
+    protected array $names = [];
+
+    public function __construct(...$_names)
+    {
+        foreach ($_names as $_name)
+            $this->names[] = $_name;
+    }
+
+    public function getNames(): array
+    {
+        return $this->names;
+    }
+}
+
 class Movie
 {
     protected string $title;
     protected int $year;
     protected string $poster;
-    protected string $genre;
+    protected Genre $genre;
 
-    public function __construct($_title, $_year, $_poster, $_genre)
+    public function __construct(string $_title, int $_year, string $_poster, Genre $_genre)
     {
         $this->title = $_title;
         $this->year = $_year;
@@ -15,23 +31,23 @@ class Movie
         $this->genre = $_genre;
     }
 
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    public function getYear()
+    public function getYear(): int
     {
         return $this->year;
     }
 
-    public function getPoster()
+    public function getPoster(): string
     {
         return $this->poster;
     }
 
-    public function getGenre()
+    public function getGenre(): array
     {
-        return $this->genre;
+        return $this->genre?->getNames();
     }
 }

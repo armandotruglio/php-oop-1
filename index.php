@@ -5,7 +5,7 @@ require_once __DIR__ . "/classes/movie.php";
 $movieList = [];
 
 foreach ($movies as $movie) {
-    $movieList[] = new Movie($movie["title"], $movie["year"], $movie["poster"], $movie["genre"]);
+    $movieList[] = new Movie($movie["title"], $movie["year"], $movie["poster"], new Genre(...$movie["genre"]));
 }
 ?>
 
@@ -43,7 +43,9 @@ foreach ($movies as $movie) {
                                 class="img-fluid">
                         </div>
                         <div class="card-footer">
-                            <span><?= $singleMovie->getGenre() ?></span>
+                            <?php foreach ($singleMovie->getGenre() as $genre) { ?>
+                                <span><?= $genre ?>, </span>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
